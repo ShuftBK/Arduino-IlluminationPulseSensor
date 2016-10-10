@@ -1,5 +1,6 @@
 /*
  * PulseReadTest.ino
+ * Pulse reading test program.
  * 
  * [How to use]
  * 1. Compile and Write to arduino.
