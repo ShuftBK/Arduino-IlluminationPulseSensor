@@ -14,10 +14,26 @@ void Allturnoff() {
   i = start;
 }
 
+
+// change it lightswitch
 void light (boolean QS, int Mode) {
   
   if(Mode == 'N'){
-    if(lastMode == Mode){
+  lightMode_N(QS,Mode);
+  }
+  else if(Mode == 'P'){
+  lightMode_P(QS,Mode);
+  }
+  else{
+    Allturnoff();
+  }
+  lastMode = Mode;
+  Serial.println(QS);
+}
+
+// lightmode_p
+void lightMode_P (int QS, int Mode){
+  if(lastMode == Mode){
     digitalWrite(last,LOW);
     digitalWrite(i,HIGH);
     last = i;
@@ -26,29 +42,28 @@ void light (boolean QS, int Mode) {
       Allturnoff();
       i = start; // reset
     }
-    }else{
-      Allturnoff();
-      i = start;
-    }
-  
+  }else{
+    Allturnoff();
+    i = start;
   }
-  else if(Mode == 'P'){
-    if(lastMode == Mode){
+}
+
+
+
+//lightmode_n
+
+void lightMode_N (int QS, int Mode){
+  if(lastMode == Mode){
     digitalWrite(i,HIGH);
     ++i;
     if(i == 10){
       Allturnoff();
       i = start;
     }
-    }else{
-      Allturnoff();
-      i = start;
-    }
-  }
-  else{
+  }else{
     Allturnoff();
+    i = start;
   }
-  lastMode = Mode;
-  Serial.println(QS);
 }
+
 
