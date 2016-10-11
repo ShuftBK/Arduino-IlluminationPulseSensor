@@ -21,17 +21,17 @@ void setup() {
 }
 
 void loop() {
-  int readbool;
-  readbool = Serial.read();
+  int SelectMode;
+  SelectMode = Serial.read();
 
-  Serial.println(readbool);
+  Serial.println(SelectMode);
 
   light(QS, Mode);
 
   
-  if(readbool != -1){
+  if(SelectMode != -1){
 
-    switch(readbool){
+    switch(SelectMode){
       case 'D':            // DebugMode
         QS = false;
         Mode = 'D';
