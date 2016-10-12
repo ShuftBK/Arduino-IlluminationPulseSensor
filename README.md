@@ -37,11 +37,8 @@ QS              | Boolean | BPMが更新されたりパルスが更新される�
 
 Variable| Type    | data | description
 --------|---------|------|-----------------------
-Signal  | Int     | 8bit | AnalogInputで得た値。
 BPM     | Int     | 8bit | 1分間あたりの脈拍値。
-IBI     | Int     | 8bit | 鼓動と鼓動のｲﾝﾀｰﾊﾞﾙの値。
 Pulse   | Boolean | 1bit | センサーが感知したらtrue,それ以外はfalseを返す
-QS      | Boolean | 1bit | BPMが更新されたりパルスが更新されるたびにtrueを返す。リセット時に使用する。
 
 ## 送信データ仕様
 
