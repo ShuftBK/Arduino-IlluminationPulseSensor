@@ -1,5 +1,5 @@
 # Arduino-IlluminationPulseSensor
-東舞鶴駅イルミネーション事業用心拍センサープログラム(電気情報工学実験ⅡB)
+東舞鶴駅イルミネーション事業用プログラム(電気情報工学実験ⅡB)
 
 * AVRの仕様書421ﾍﾟｰｼﾞってマジか…
 * たまーに出てくるC++に困惑しか感じられない
@@ -39,7 +39,7 @@ Variable| Type    | data | description
 --------|---------|------|-----------------------
 BPM     | Int     | 8bit | 1分間あたりの脈拍値。
 Pulse   | Boolean | 1bit | センサーが感知したらtrue,それ以外はfalseを返す
-Mode    | Int     | 2bit | 
+Mode    | Int     | 2bit |
 
 ## 送信データ仕様
 
