@@ -45,10 +45,10 @@ Mode    | Int     | 2bit |
 
 * 送信データが2byteのためint,unsigned int,wordの型のうちどれかを使います(未確定)
 
-bit     |7|6|5|4|3|2|1|0
----|---|---|---|---|---|---|---
-上位8bit  ||||||Mode1|Mode0|Pulse
-下位8bit  |BPM7|BPM6|BPM5|BPM4|BPM3|BPM2|BPM1|BPM0
+bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 
+----------|------|------|------|------|------|-------|-------|-----
+上位8bit  |      |      |      |      |      | Mode1 | Mode0 | Pulse 
+下位8bit  | BPM7 | BPM6 | BPM5 | BPM4 | BPM3 | BPM2 | BPM1 | BPM0 
 
 
 ## 主な仕様
