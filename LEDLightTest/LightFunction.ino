@@ -45,6 +45,7 @@ void lightMode_P (int QS, int Mode){
   }else{
     Allturnoff();
     i = start;
+    last = 8;
   }
 }
 
@@ -55,6 +56,7 @@ void lightMode_P (int QS, int Mode){
 void lightMode_N (int QS, int Mode){
   if(lastMode == Mode){
     digitalWrite(i,HIGH);
+    last = i;
     ++i;
     if(i == 10){
       Allturnoff();
@@ -63,7 +65,9 @@ void lightMode_N (int QS, int Mode){
   }else{
     Allturnoff();
     i = start;
+    last = 8;
   }
+  
 }
 
 

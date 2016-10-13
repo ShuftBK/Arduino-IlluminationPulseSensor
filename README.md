@@ -39,6 +39,7 @@ Variable| Type    | data | description
 --------|---------|------|-----------------------
 BPM     | Int     | 8bit | 1分間あたりの脈拍値。
 Pulse   | Boolean | 1bit | センサーが感知したらtrue,それ以外はfalseを返す
+Mode    | Int     | 2bit | 
 
 ## 送信データ仕様
 

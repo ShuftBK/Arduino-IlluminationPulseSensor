@@ -18,5 +18,5 @@ void setup() {
 void loop() {
   int pulse = analogRead(PulseIn);
   Serial.println(pulse);
-  delay(10);
+  delay(20);
 }
