@@ -1,4 +1,11 @@
+#include <SoftwareSerial.h>
 
+const int rxPin = 9;    // SoftwareSerial RX
+const int txPin = 10;   // SoftwareSerial TX
+
+SoftwareSerial softSerial(rxPin,txPin);
+
+const int Speed = 9600;
 
 volatile boolean QS = false;
 
@@ -18,16 +25,20 @@ void setup() {
   pinMode(11,OUTPUT);
 
   Serial.begin(9600);
+
+  softSerial.begin(Speed);
 }
 
 void loop() {
+  
   int SelectMode;
-  SelectMode = Serial.read();
+  //SelectMode = Serial.read();
 
-  Serial.println(SelectMode);
+  //Serial.println(SelectMode);
 
-  light(QS, Mode);
-
+  if(softSerial.available()){
+    SelectMode = softSerial.read();
+    //Serial.println(softSerial.read());
   
   if(SelectMode != -1){
 
@@ -51,6 +62,9 @@ void loop() {
   }
   else {
   }
+  light(QS, Mode);
+  }
+  
 
-  delay(950);
+  //delay(950);
 }

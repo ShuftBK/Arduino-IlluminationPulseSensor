@@ -10,6 +10,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.write('P');
-  delay(950);
+  if(Serial.available()){
+  Serial.write(Serial.read());
+  }
 }

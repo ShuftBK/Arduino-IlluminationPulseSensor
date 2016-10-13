@@ -28,7 +28,6 @@ void light (boolean QS, int Mode) {
     Allturnoff();
   }
   lastMode = Mode;
-  Serial.println(QS);
 }
 
 // lightmode_p
@@ -48,8 +47,6 @@ void lightMode_P (int QS, int Mode){
     last = 8;
   }
 }
-
-
 
 //lightmode_n
 
