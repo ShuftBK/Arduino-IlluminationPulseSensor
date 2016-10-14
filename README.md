@@ -50,6 +50,9 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 上位8bit  |      |      |      |      |      | Mode1 | Mode0 | Pulse 
 下位8bit  | BPM7 | BPM6 | BPM5 | BPM4 | BPM3 | BPM2 | BPM1 | BPM0 
 
+* Mode : ﾓｰﾄﾞを指定して送信する(内容は別途規定)
+* Pulse : センサーの反応値
+* BPM : ヒトの正常な脈拍の値が広いため8bitで送信
 
 ## 主な仕様
 ### センサー側  
