@@ -179,7 +179,7 @@ void TimerSet () {
 void setup(){
   pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
   pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
-  Serial.begin(115200);             // we agree to talk fast!
+  Serial.begin(9600);             // we agree to talk fast!
 
   // センサーで得る情報はここから始まる。
   // Interrupt.inoに飛ぶ
