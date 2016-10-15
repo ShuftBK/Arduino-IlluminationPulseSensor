@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
-const int rxPin = 9;    // SoftwareSerial RX
-const int txPin = 10;   // SoftwareSerial TX
+const int rxPin = 10;    // SoftwareSerial RX
+const int txPin = 11;   // SoftwareSerial TX
 
 SoftwareSerial softSerial(rxPin,txPin);
 
@@ -22,9 +22,9 @@ void setup() {
   pinMode(8,OUTPUT);
 
   // QS Flag
-  pinMode(11,OUTPUT);
+  pinMode(9,OUTPUT);
 
-  Serial.begin(9600);
+  Serial.begin(Speed);
 
   softSerial.begin(Speed);
 }
