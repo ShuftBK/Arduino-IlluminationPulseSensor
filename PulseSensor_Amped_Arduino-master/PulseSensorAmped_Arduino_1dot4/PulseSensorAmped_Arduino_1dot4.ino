@@ -211,6 +211,11 @@ void loop(){
         fadeRate = 255;         // Makes the LED Fade Effect Happen
                                 // Set 'fadeRate' Variable to 255 to fade LED with pulse
 
+
+  // フラグ判別にかける
+  JudgementFlag();
+  
+
         // BPMとIBIを表示するためにAllSerialHandling.inoに投げる
         serialOutputWhenBeatHappens();   // A Beat Happened, Output that to serial.     
 
@@ -220,11 +225,8 @@ void loop(){
 
   // フェードするLEDのエフェクトを出力するけど、ｼｮｳｼﾞｷｲﾗﾅｲ
   // QSフラグが立たなかった場合にも呼び出される。
-  //ledFadeToBeat();                      // Makes the LED Fade Effect Happen 
+  ledFadeToBeat();                      // Makes the LED Fade Effect Happen 
 
-  // フラグ判別にかける
-  JudgementFlag();
-  
   // アップデートサイクル20ms
   delay(20);                             //  take a break
 }

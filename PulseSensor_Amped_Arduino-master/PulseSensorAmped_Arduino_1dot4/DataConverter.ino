@@ -8,7 +8,17 @@
 // これ自体は読み取った値に対して本当にそれが有効であるかを判断させ、モードを確定する
 // 要は脈拍が異常値をたたき出していないかと、ちゃんと手を認識しているかを判別する
 void JudgementFlag () {
-  
+  // テストで呼び込まれていればserialprintする
+  Serial.print("BPM     :");
+  Serial.print(BPM);
+  Serial.print("Signal  :");
+  Serial.print(Signal);
+  Serial.print("IBI     :");
+  Serial.print(IBI);
+  Serial.print("Pulse   :");
+  Serial.print(Pulse);
+  Serial.print("QS      :");
+  Serial.println(QS);
 }
 
 // JudgementFlagでフラグの判断後に、データをまとめる
