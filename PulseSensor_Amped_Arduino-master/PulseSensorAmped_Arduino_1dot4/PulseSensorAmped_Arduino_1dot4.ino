@@ -72,8 +72,11 @@ void loop(){
 
   // フェードするLEDのエフェクトを出力するけど、ｼｮｳｼﾞｷｲﾗﾅｲ
   // QSフラグが立たなかった場合にも呼び出される。
-  ledFadeToBeat();                      // Makes the LED Fade Effect Happen 
+  //ledFadeToBeat();                      // Makes the LED Fade Effect Happen 
 
+  // フラグ判別にかける
+  JudgementFlag();
+  
   // アップデートサイクル20ms
   delay(20);                             //  take a break
 }
