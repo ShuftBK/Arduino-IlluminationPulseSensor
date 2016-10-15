@@ -6,7 +6,7 @@
  * 
  */
 
-
+/*
 volatile int rate[10];                    // array to hold last ten IBI values
 // パルスのタイミングを決定するために使用
 volatile unsigned long sampleCounter = 0;          // used to determine pulse timing
@@ -22,12 +22,13 @@ volatile int thresh = 525;                // used to find instant moment of hear
 volatile int amp = 100;                   // used to hold amplitude of pulse waveform, seeded
 volatile boolean firstBeat = true;        // used to seed rate array so we startup with reasonable BPM(Google翻訳:我々は合理的なBPMで始まるので、レート・アレイを播種するために使用)
 volatile boolean secondBeat = false;      // used to seed rate array so we startup with reasonable BPM
+*/
 
 // ここの処理がミソ
 // これより下のコードはすべてArduinoというよりAVRとしての機能をフル活用しているため、要解読。
 // 割り込みで2msの読み込みをすることによってloopに縛られないセンサーの読み取りが可能
 // レジスタによる制御のせいでわけわかめ
-
+/*
 // ループの速度はTCCR2BとOCR2Aで調整する。
 // TCCR2Bはプレスケーラの値で、クロックを何分割するかを決める。
 void interruptSetup(){     
@@ -36,32 +37,11 @@ void interruptSetup(){
 /* 
  *  CTCモードでの使用(OCR2A)
  *  
- *  CTCモードを使用することによってPWM出力なしでタイマとしての動作をしている
- *  なおTOP値がOCR2Aで指定した値となる
- *  ちなみにTCCR2AやTCCR2Bなどを16bitで表現しているが、実際のところﾀｲﾏ/ｶｳﾝﾀの設定上8bitでやった方がいろいろいいらしい(S研談
- *  
- *  詳しくはATmega328Pの日本語訳されたデータシートに詳しく記載されているため参照されたし
- *  https://avr.jp/user/DS/PDF/mega88A.pdf
- *  
- *  P.90~P.104が8bitﾀｲﾏ/ｶｳﾝﾀ2の動作に関する資料であるので、ここを参照するといい感じ
- *  
- *  動作種別としては比較一致ﾀｲﾏ/ｶｳﾝﾀ解除(CTC)動作[P.94]となり、
- *  fOCnx = fclk_I/O / (2×N×(1＋OCRnx))
- *  の式にてデータシート上にある生成波形周波数を求めることができるが、1周期で2回分の割り込みが発生しているのが図18-5からわかる
- *  そのため実動作における割り込み周波数はfCnxに2をかけたものとなる
- *  これにより今回の動作でほしい周波数は
- *  fOCnx = fclk_I/O / (N×(1＋OCRnx))
- *  の式で求めることができ、
- *  
  *  CS = 110 : 分周比256
- *  OCR2A = 0x7C = 124
- *  出力するPWMの周波数 : f = 16MHz / 256 * ( 1 + 124 ) = 500 [Hz]
- *  500[Hz]での動作のため、これで2mS出だすように設定している [QED]
- *  
- *  
+ *  出力するPWMの周波数 : f = 16MHz / ( 256 * 510 ) = 122.54901960784313725490196078431 [Hz]
  *  
  */
-
+/*
   // タイマ/カウンタ2制御レジスタA
   // 0x02 = 0000 0010
   TCCR2A = 0x02;     // DISABLE PWM ON DIGITAL PINS 3 AND 11, AND GO INTO CTC MODE
@@ -80,8 +60,8 @@ void interruptSetup(){
   // グローバル割り込みを許可する。
   sei();             // MAKE SURE GLOBAL INTERRUPTS ARE ENABLED      
 } 
-
-
+*/
+/*
 // ISRを使って割り込みベクタの登録を行う
 // TIMER2_COMPA_vectはタイマ/カウンタ2(TCNT2)と比較レジスタ(OCR2A)が同じ値になったときに起動される割り込みハンドラです。
 // PWMでのタイミング取得
@@ -98,16 +78,18 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
    * 以下sei();まで割り込み禁止で処理を行っていく(つまり最後かfirstbeatのところまで）
    * おそらく処理中に変数が変わっては困るため
    */
+   /*
   cli();                                      // disable interrupts while we do this
 
   /*
    * ここでようやく真打ち登場
    * 以下からパルスの処理が始まる
    */
+   /*
   Signal = analogRead(pulsePin);              // read the Pulse Sensor 
   sampleCounter += 2;                         // keep track of the time in mS with this variable
   int N = sampleCounter - lastBeatTime;       // monitor the time since the last beat to avoid noise
-
+*//*
   // 波のピークと谷を見つける(Tを谷の値とする)
   //  find the peak and trough of the pulse wave
   if(Signal < thresh && N > (IBI/5)*3){       // avoid dichrotic noise by waiting 3/5 of last IBI
@@ -184,7 +166,7 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
        *  1min = 60sec
        *  1sec = 1000msec
        *  1min = 60 sec * 1000msec = 60000msec
-       */
+       *//*
       BPM = 60000/runningTotal;               // how many beats can fit into a minute? that's BPM!
       // きちんと値が出そろったのでQSのフラグを立てる
       QS = true;                              // set Quantified Self flag 
@@ -224,7 +206,5 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
 }// end isr
 // endしたい…したくない?
 
-
-
-
+*/
 
