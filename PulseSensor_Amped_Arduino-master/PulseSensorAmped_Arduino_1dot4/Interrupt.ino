@@ -1,12 +1,11 @@
-/*
- * volatile修飾子を使うことによって割り込み時に変数が変化したときにその変化を受け取る
- * わかったらいろいろ書く
- * 
- * 
- * 
+/* 
+ *  ﾀｲﾏ割り込みによるパルスセンサーからデータを得てデータ整形を行う部分
+ *  もともと使用されていたコードにはAVRの機能をそのまま記述している箇所が散見された
+ *  一応ATmega328Pにおけるﾀｲﾏ/ｶｳﾝﾀ2の処理について理解はしたが、他人がコードを読むにあたり理解しがたい内容であったため書き換えてある
+ *  今回は処理をわかりやすくるためにMsTimer2というライブラリを用いた
+ *  このコードを実行するにあたりMsTimer2ライブラリをインストールしてコンパイルする必要があるため注意が必要である
  */
 
-/*
 volatile int rate[10];                    // array to hold last ten IBI values
 // パルスのタイミングを決定するために使用
 volatile unsigned long sampleCounter = 0;          // used to determine pulse timing
@@ -22,74 +21,14 @@ volatile int thresh = 525;                // used to find instant moment of hear
 volatile int amp = 100;                   // used to hold amplitude of pulse waveform, seeded
 volatile boolean firstBeat = true;        // used to seed rate array so we startup with reasonable BPM(Google翻訳:我々は合理的なBPMで始まるので、レート・アレイを播種するために使用)
 volatile boolean secondBeat = false;      // used to seed rate array so we startup with reasonable BPM
-*/
 
-// ここの処理がミソ
-// これより下のコードはすべてArduinoというよりAVRとしての機能をフル活用しているため、要解読。
-// 割り込みで2msの読み込みをすることによってloopに縛られないセンサーの読み取りが可能
-// レジスタによる制御のせいでわけわかめ
-/*
-// ループの速度はTCCR2BとOCR2Aで調整する。
-// TCCR2Bはプレスケーラの値で、クロックを何分割するかを決める。
-void interruptSetup(){     
-  // Initializes Timer2 to throw an interrupt every 2mS.
+void TimerSet () {
+  MsTimer2::stop();                                      // disable interrupts while we do this
 
-/* 
- *  CTCモードでの使用(OCR2A)
- *  
- *  CS = 110 : 分周比256
- *  出力するPWMの周波数 : f = 16MHz / ( 256 * 510 ) = 122.54901960784313725490196078431 [Hz]
- *  
- */
-/*
-  // タイマ/カウンタ2制御レジスタA
-  // 0x02 = 0000 0010
-  TCCR2A = 0x02;     // DISABLE PWM ON DIGITAL PINS 3 AND 11, AND GO INTO CTC MODE
-  
-  // タイマ/カウンタ2制御レジスタB
-  // 0x06 = 0000 0110
-  TCCR2B = 0x06;     // DON'T FORCE COMPARE, 256 PRESCALER 
-
-
-  // 8ビット比較レジスタ
-  // 11番ピン用。analogWrite()で指定したデューティ比を保持します。
-  OCR2A = 0X7C;      // SET THE TOP OF THE COUNT TO 124 FOR 500Hz SAMPLE RATE
-  // 割り込みマスク
-  TIMSK2 = 0x02;     // ENABLE INTERRUPT ON MATCH BETWEEN TIMER2 AND OCR2A
-
-  // グローバル割り込みを許可する。
-  sei();             // MAKE SURE GLOBAL INTERRUPTS ARE ENABLED      
-} 
-*/
-/*
-// ISRを使って割り込みベクタの登録を行う
-// TIMER2_COMPA_vectはタイマ/カウンタ2(TCNT2)と比較レジスタ(OCR2A)が同じ値になったときに起動される割り込みハンドラです。
-// PWMでのタイミング取得
-
-// これはタイマー2の割り込みルーチンです
-// タイマー2が2msごとに毎回呼び出されるのを確かめてください
-// THIS IS THE TIMER 2 INTERRUPT SERVICE ROUTINE. 
-// Timer 2 makes sure that we take a reading every 2 miliseconds
-ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts to 124
-
-  
-  /*
-   * cli();で割り込み禁止処理
-   * 以下sei();まで割り込み禁止で処理を行っていく(つまり最後かfirstbeatのところまで）
-   * おそらく処理中に変数が変わっては困るため
-   */
-   /*
-  cli();                                      // disable interrupts while we do this
-
-  /*
-   * ここでようやく真打ち登場
-   * 以下からパルスの処理が始まる
-   */
-   /*
   Signal = analogRead(pulsePin);              // read the Pulse Sensor 
   sampleCounter += 2;                         // keep track of the time in mS with this variable
   int N = sampleCounter - lastBeatTime;       // monitor the time since the last beat to avoid noise
-*//*
+
   // 波のピークと谷を見つける(Tを谷の値とする)
   //  find the peak and trough of the pulse wave
   if(Signal < thresh && N > (IBI/5)*3){       // avoid dichrotic noise by waiting 3/5 of last IBI
@@ -138,7 +77,7 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
         // 次の鼓動をsecondBeatとするためにtrueにする
         secondBeat = true;                   // set the second beat flag
         // グローバル割り込みを許可する。
-        sei();                               // enable interrupts again
+        MsTimer2::start();                               // enable interrupts again
         // 返した
         return;                              // IBI value is unreliable so discard it(Google翻訳:IBI値の信頼性が低いので、それを捨てます)
       }   
@@ -166,7 +105,7 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
        *  1min = 60sec
        *  1sec = 1000msec
        *  1min = 60 sec * 1000msec = 60000msec
-       *//*
+       */
       BPM = 60000/runningTotal;               // how many beats can fit into a minute? that's BPM!
       // きちんと値が出そろったのでQSのフラグを立てる
       QS = true;                              // set Quantified Self flag 
@@ -202,9 +141,5 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
     secondBeat = false;                    // when we get the heartbeat back(Google翻訳:我々は戻ってハートビートを取得するときに、これらのノイズを避けるために設定)
   }
   // グローバル割り込みを許可してどねどね
-  sei();                                   // enable interrupts when youre done!
-}// end isr
-// endしたい…したくない?
-
-*/
-
+  MsTimer2::start();
+}

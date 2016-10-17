@@ -5,7 +5,7 @@
  */
 
 // ひとまとめにしたデータを送信する処理だけ分離(あまりにもわかりにくいから)
- void Sender (unsigned long Packet) {
+ void PacketSender (int Packet) {
   Serial.println( Packet );
  }
 

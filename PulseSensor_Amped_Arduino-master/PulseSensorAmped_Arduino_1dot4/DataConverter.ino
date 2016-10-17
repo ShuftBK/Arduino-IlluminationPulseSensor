@@ -19,12 +19,17 @@ void JudgementFlag () {
   Serial.print(Pulse);
   Serial.print("QS      :");
   Serial.println(QS);
+
+  if (BPM >= 40 && BPM <= 150) {
+    Serial.println("HOGE");
+    DataMerge(Pulse,BPM);
+  }
 }
 
 // JudgementFlagでフラグの判断後に、データをまとめる
 // 即データConvertに投げる
-void DataMerge () {
-  
+void DataMerge (boolean Pulse, int BPM) {
+  //DataConvert()
 }
 
 // データを一度バイナリ化しパケットにして送信する。
