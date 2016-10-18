@@ -65,6 +65,4 @@ void loop() {
   light(QS, Mode);
   }
   
-
-  //delay(950);
 }

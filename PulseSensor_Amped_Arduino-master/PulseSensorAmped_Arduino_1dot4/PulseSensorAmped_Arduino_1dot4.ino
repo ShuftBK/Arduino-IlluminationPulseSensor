@@ -13,6 +13,8 @@ https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino/blob/master/
  ----------------------       ----------------------  ----------------------
 */
 
+const int Arduino_ID = 0; 
+
 #include <MsTimer2.h> // MsTimer2ライブラリの読み込み(要ライブラリインストール
 
 //  Variables
