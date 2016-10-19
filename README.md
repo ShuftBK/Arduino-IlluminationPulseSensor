@@ -31,6 +31,9 @@
 * エンジェルのハートは光らせるために、１周期ごとにフラグ(Pulse[Boolean])をセンサー側からオブジェ側へ送信する。
 * 脈拍センサーに触れていない時は、スタンバイモードであらかじめプログラムしている点灯方法を用いる。
 
+### オブジェ2(heart)
+コードについては、[@luna01926](https://github.com/luna01926)の[lightingLED](https://github.com/luna01926/lightingLED)を参照
+
 ## 定義された変数について
 ### センサー側
 
@@ -49,21 +52,22 @@ Variable| Type    | data | description
 --------|---------|------|-----------------------
 BPM     | Int     | 8bit | 1分間あたりの脈拍値。
 Pulse   | Boolean | 1bit | センサーが感知したらtrue,それ以外はfalseを返す
+ObjectID| Int     | 1bit | Arduinoに対して割り振られたID、0 or 1
 Mode    | Int     | 2bit |
 
 ## 送信データ仕様
 
-* 送信データが2byteのためint,unsigned int,wordの型のうちどれかを使います(未確定)
+* 送信データが2byteのためunsigned intを使う
 
 bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 
 ----------|------|------|------|------|------|-------|-------|-----
-上位8bit  |      |      |      |      | Object0 | Mode1 | Mode0 | Pulse0 
+上位8bit  |      |      |      |      | ObjectID | Mode1 | Mode0 | Pulse0 
 下位8bit  | BPM7 | BPM6 | BPM5 | BPM4 | BPM3 | BPM2 | BPM1 | BPM0 
 
 * Mode : ﾓｰﾄﾞを指定して送信する(内容は別途規定)
 * Pulse : センサーの反応値
 * BPM : ヒトの正常な脈拍の値が広いため8bitで送信
-* Object : センサーのArduino2台使用時に使用(現在未使用)  
+* Object : センサーのArduino2台使用時に使用  
 **残りは未使用の予約領域として残す**
 
 ## 主な仕様
@@ -72,3 +76,7 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 受け取った値を解析してZigBeeの積んであるArduinoへ送信する
 
 ### オブジェ側
+中継器に対してデータを送信する  
+なお、オブジェ1、オブジェ2に対して受信用のZigBee on Arduinoを使う
+そのため、オブジェ1のArduinoはSoftwareSerialを用いてangelとarrowに受信データの送信を行う  
+無線班より受信したSoftwareSerialによる1byteのデータの内容によっては割り込みをする
