@@ -38,7 +38,7 @@ void JudgementFlag () {
 void DataMerge () {
   // BPMを格納
   _BPM = BPM;
-  _Pulse = Pulse;
+  _Pulse = QS;
   _ID = Arduino_ID;
   
   DataConvert();
@@ -51,7 +51,7 @@ void DataConvert (){
   PacketData += _BPM;
 
   // Pulse値を書き込み
-  bitWrite(PacketData,9,_Pulse);
+  bitWrite(PacketData,9,1);
 
   // Arduinoの固有IDを書き込み
   bitWrite(PacketData,12,_ID);

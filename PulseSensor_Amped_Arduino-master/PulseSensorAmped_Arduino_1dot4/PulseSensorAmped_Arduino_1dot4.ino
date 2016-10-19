@@ -15,7 +15,11 @@ https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino/blob/master/
 
 const int Arduino_ID = 0; 
 
-#include <MsTimer2.h> // MsTimer2ライブラリの読み込み(要ライブラリインストール
+#include <MsTimer2.h>           // MsTimer2ライブラリの読み込み(要ライブラリインストール
+#include <SoftwareSerial.h>   // SoftwareSerialライブラリの読み込み
+
+// Init SoftwareSerial
+SoftwareSerial OutSerial = SoftwareSerial(9,10);
 
 //  Variables
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
@@ -36,6 +40,8 @@ void setup(){
   pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
   pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
   Serial.begin(9600);             // we agree to talk fast!
+
+  OutSerial.begin(9600);
 
   MsTimer2::set(2, TimerSet); // 2mSごとにTimerのオンオフ
   MsTimer2::start();

@@ -9,6 +9,8 @@
   // ヘッダーを追加
   Serial.print('H');
   Serial.println( Packet );
+  OutSerial.print('H');
+  OutSerial.println( Packet );
 
   // dataの初期化
   PacketData = 0;
