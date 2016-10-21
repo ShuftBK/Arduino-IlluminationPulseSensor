@@ -6,23 +6,6 @@
 
 ---
 
-# ﾘﾎﾟｼﾞﾄﾘ構成  
-* DataReceiverTest
- * DataReceiverTest.ino
-* DataTransmitterTest
- * DataTransmitterTest.ino
-* LEDLightTest
- * LEDLightTest.ino
- * LightFunction.ino
-* PulseReadTest  
- * PulseReadTest.ino  
- センサー動作テスト用プログラム
-* PulseSensor_Amped_Arduino-master
- * PulseSensorAmped_Arduino_1dot4
-  * AllSerialHandling.ino
-
----
-
 ## 制御内容
 ### オブジェ1(angel,arrow)
 * 7つの矢を飛ばすために、１周期ごとにフラグ(Pulse[Boolean])をセンサー側からオブジェ側へ送信する。なお、表示する矢は基本的に一本ずつ光らせる。パターンを以下に示す。
@@ -59,10 +42,10 @@ Mode    | Int     | 2bit |
 
 * 送信データが2byteのためunsigned intを使う
 
-bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 
+bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 ----------|------|------|------|------|------|-------|-------|-----
-上位8bit  |      |      |      |      | ObjectID | Mode1 | Mode0 | Pulse0 
-下位8bit  | BPM7 | BPM6 | BPM5 | BPM4 | BPM3 | BPM2 | BPM1 | BPM0 
+上位8bit  |      |      |      |      | ObjectID | Mode1 | Mode0 | Pulse0
+下位8bit  | BPM7 | BPM6 | BPM5 | BPM4 | BPM3 | BPM2 | BPM1 | BPM0
 
 * Mode : ﾓｰﾄﾞを指定して送信する(内容は別途規定)
 * Pulse : センサーの反応値
@@ -80,3 +63,8 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 なお、オブジェ1、オブジェ2に対して受信用のZigBee on Arduinoを使う
 そのため、オブジェ1のArduinoはSoftwareSerialを用いてangelとarrowに受信データの送信を行う  
 無線班より受信したSoftwareSerialによる1byteのデータの内容によっては割り込みをする
+
+---
+
+## テストプログラム
+Arduinoの実験用にこのﾘﾎﾟｼﾞﾄﾘで管理していたテストプログラム群は[このﾘﾎﾟｼﾞﾄﾘ](https://github.com/ShuftBK/Arduino-TestPrograms)に移動
