@@ -49,6 +49,7 @@ void setup(){
 
 //  Where the Magic Happens
 void loop(){
+  Serial.println(Signal);
   // QS(センサーが反応しているかどうか)で反応があった場合の処理を以下で行う
   if (QS == true){     // A Heartbeat Was Found
                        // BPM and IBI have been Determined (BPMおよびIBMが決定されています)
