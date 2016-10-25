@@ -21,10 +21,15 @@ void Allturnon() {
     digitalWrite(j,HIGH);
 }
 
+void ModeReset() {
+   NextPosition = reset_start;
+   PrevPosition = 0;
+}
+
 // Pulse Read Mode
 // if pulse receive, use this function
 void LightPulseArrow(){
-  Allturnoff();
+  // Allturnoff();
   digitalWrite(NextPosition,HIGH);
   PrevPosition = NextPosition;
   ++NextPosition;

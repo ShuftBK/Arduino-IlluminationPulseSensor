@@ -44,33 +44,38 @@ void setup() {
 void loop() {
 
   get_word();
-  
+
   // switch Mode
   switch(ControlWord){
     // All turn off Mode
     case '0':
+      ModeReset();
       digitalWrite(9,LOW);
       Allturnoff();
       break;
 
     // All turn on Mode
     case '1':
+      ModeReset();
       digitalWrite(9,LOW);
       Allturnon();
       break;
 
     // Pattern Light Mode
     case 'P':
-    digitalWrite(9,LOW);
+      ModeReset();
+      digitalWrite(9,LOW);
       LightPatternMode();
       break;
 
     // Conbination Light Mode
     case 'C':
-      Allturnoff();
+      if(PrevMode != 'C')
+        Allturnoff();
       digitalWrite(9,HIGH);
       PrevMode = 'C';
       if(get_data())
+        LightPulseArrow();
         Serial.println(data,BIN);
       break;
   }

@@ -14,7 +14,7 @@ int _BPM = 0;
 // 要は脈拍が異常値をたたき出していないかと、ちゃんと手を認識しているかを判別する
 void JudgementFlag () {
   // テストで呼び込まれていればserialprintする
-  /*
+  
   Serial.print("BPM     :");
   Serial.print(BPM);
   Serial.print("Signal  :");
@@ -25,7 +25,7 @@ void JudgementFlag () {
   Serial.print(Pulse);
   Serial.print("QS      :");
   Serial.println(QS);
-  */
+  
   
   if (BPM >= 40 && BPM <= 127) {
 

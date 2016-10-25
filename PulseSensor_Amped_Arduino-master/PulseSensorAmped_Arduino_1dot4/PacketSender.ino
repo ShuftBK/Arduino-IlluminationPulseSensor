@@ -7,8 +7,8 @@
 // ひとまとめにしたデータを送信する処理だけ分離(あまりにもわかりにくいから)
  void PacketSender (int Packet) {
   // ヘッダーを追加
-  //Serial.print('H');
-  //Serial.println( Packet );
+  Serial.print('H');
+  Serial.println( Packet );
   OutSerial.print('H');
   OutSerial.println( Packet );
   

@@ -1,4 +1,3 @@
-
 bool get_word(){
   while(Serial.available() > 0)
   stack = Serial.read();
@@ -13,10 +12,10 @@ bool get_word(){
 }
 
 bool get_data(){
-  if(Serial.available() >= sizeof(byte)+sizeof(int))
-  if(Serial.read()=='H'){
-    data_1 = Serial.read();
-    data_2 = Serial.read();
+  if(SignalSerial.available() >= sizeof(byte)+sizeof(int))
+  if(SignalSerial.read()=='H'){
+    data_1 = SignalSerial.read();
+    data_2 = SignalSerial.read();
     
     Pulse = bitRead(data_1,1);
     ArduinoID = bitRead(data_1,4);
@@ -25,14 +24,14 @@ bool get_data(){
     data = makeWord(data_1,data_2);
 
     // Pulse Read Mode
-    if(Mode == 'C'){
-      if (bitRead(data_1,1) == 1)
-        LightPulseArrow();
+      // if (bitRead(data_1,1) == 1)
+       // LightPulseArrow();
     //if (bitRead(data_1,1) == 0)
       //LeavePulseArrow();
-    }
+    
       
     return true;
   }
   return false;
 }
+
