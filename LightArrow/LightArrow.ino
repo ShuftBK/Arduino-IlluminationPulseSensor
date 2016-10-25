@@ -4,8 +4,8 @@
  */
 #include <SoftwareSerial.h>
 
-#define rxPin 9    // rxPin num setup
-#define txPin 10   // txPin num setup
+#define rxPin 10     // rxPin num setup
+#define txPin 11   // txPin num setup
 SoftwareSerial SignalSerial(rxPin,txPin);
 
 #define Speed 9600 // Serial Speed
@@ -19,6 +19,8 @@ int Pulse;        // Pulse Peak
 int data_1;       // up bit data
 int data_2;       // under bit data(BPM)
 
+char PrevMode;
+
 char ControlWord = 'C';
 char stack;
 
@@ -26,10 +28,11 @@ void setup() {
   // OUTPUT Angel Setup
   pinMode(2,OUTPUT);  // Arrow1
   pinMode(3,OUTPUT);  // Arrow2
-  pinMode(5,OUTPUT);  // Arrow3
-  pinMode(6,OUTPUT);  // Arrow4
-  pinMode(7,OUTPUT);  // Arrow5  
-  pinMode(8,OUTPUT);  // Arrow6
+  pinMode(4,OUTPUT);  // Arrow3
+  pinMode(5,OUTPUT);  // Arrow4
+  pinMode(6,OUTPUT);  // Arrow5  
+  pinMode(7,OUTPUT);  // Arrow6
+  pinMode(8,OUTPUT);  // Arrow7
 
   // Flag Check
   pinMode(9,OUTPUT);
@@ -46,26 +49,30 @@ void loop() {
   switch(ControlWord){
     // All turn off Mode
     case '0':
+      digitalWrite(9,LOW);
       Allturnoff();
       break;
 
     // All turn on Mode
     case '1':
+      digitalWrite(9,LOW);
       Allturnon();
       break;
 
     // Pattern Light Mode
     case 'P':
+    digitalWrite(9,LOW);
       LightPatternMode();
       break;
 
     // Conbination Light Mode
     case 'C':
+      Allturnoff();
+      digitalWrite(9,HIGH);
+      PrevMode = 'C';
       if(get_data())
         Serial.println(data,BIN);
       break;
   }
   
-
 }
-
