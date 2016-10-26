@@ -25,14 +25,14 @@ char ControlWord = 'C';
 char stack;
 
 void setup() {
-  // OUTPUT Angel Setup
-  pinMode(2,OUTPUT);  // Arrow1
-  pinMode(3,OUTPUT);  // Arrow2
+  // OUTPUT Arrow and Bow Setup
+  pinMode(2,OUTPUT);  // Arrow1(Draw a bow)
+  pinMode(3,OUTPUT);  // Arrow2(Normal bow)
   pinMode(4,OUTPUT);  // Arrow3
   pinMode(5,OUTPUT);  // Arrow4
-  pinMode(6,OUTPUT);  // Arrow5  
+  pinMode(6,OUTPUT);  // Arrow5
   pinMode(7,OUTPUT);  // Arrow6
-  pinMode(8,OUTPUT);  // Arrow7
+  pinMode(8,OUTPUT);  // Arrow7(shot heart)
 
   // Flag Check
   pinMode(9,OUTPUT);
