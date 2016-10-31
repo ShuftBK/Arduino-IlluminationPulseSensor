@@ -26,6 +26,9 @@ int pulsePin = 0;                 // Pulse Sensor purple wire connected to analo
 int blinkPin = 13;                // pin to blink led at each beat
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
+int ModeUpdate = 7;               // Update Mode 'P' or 'C'
+unsigned long times;              // time
+unsigned long lastUpdateTime;     // 
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
@@ -39,17 +42,21 @@ volatile boolean QS = false;        // becomes true when Arduoino finds a beat.
 void setup(){
   pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
   pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
+  pinMode(ModeUpdate,OUTPUT);       
   Serial.begin(9600);             // we agree to talk fast!
-
+  
+  digitalWrite(ModeUpdate,LOW);
+  
   OutSerial.begin(9600);
-
+  
   MsTimer2::set(2, TimerSet); // 2mSごとにTimerのオンオフ
   MsTimer2::start();
 }
 
 //  Where the Magic Happens
 void loop(){
-  Serial.println(Signal);
+  //Serial.println(Signal);
+  times = millis();
   // QS(センサーが反応しているかどうか)で反応があった場合の処理を以下で行う
   if (QS == true){     // A Heartbeat Was Found
                        // BPM and IBI have been Determined (BPMおよびIBMが決定されています)
@@ -64,11 +71,15 @@ void loop(){
     // QSのフラグをリセットして次回の反応を待つ
     QS = false;                      // reset the Quantified Self flag for next time    
   }
-
+    Serial.println(times - lastUpdateTime);
+  if(times - lastUpdateTime >= 5000){
+    digitalWrite(ModeUpdate,LOW);
+  }
+  
   // フェードするLEDのエフェクトを出力するけど、ｼｮｳｼﾞｷｲﾗﾅｲ
   // QSフラグが立たなかった場合にも呼び出される。
   ledFadeToBeat();                      // Makes the LED Fade Effect Happen 
-
+  
   // アップデートサイクル20ms
   delay(20);                             //  take a break
 }
@@ -79,7 +90,7 @@ void ledFadeToBeat(){
     
     // 減衰時の減衰するレートを決める
     fadeRate -= 15;                         //  set LED fade value
-
+    
     // 数値を指定した範囲の中に収める(らしい)
     // constrain(x, a, b);
     // x: 計算対象の値 
@@ -87,7 +98,7 @@ void ledFadeToBeat(){
     // b: 範囲の上限
     // xがa以上b以下のときはxがそのまま返ります。xがaより小さいときはa、bより大きいときはbが返ります。
     fadeRate = constrain(fadeRate,0,255);   //  keep LED fade value from going into negative numbers!
-
+    
     // fadeRateを使ってフェードさせる。
     analogWrite(fadePin,fadeRate);          //  fade LED
 }

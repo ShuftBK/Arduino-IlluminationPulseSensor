@@ -42,7 +42,7 @@ void TimerSet () {
   if(Signal > thresh && Signal > P){          // thresh condition helps avoid noise
     P = Signal;                             // P is the peak
   }                                        // keep track of highest point in pulse wave
-
+  
   // いい感じに鼓動を検出してほげる
   //  NOW IT'S TIME TO LOOK FOR THE HEART BEAT
   // signal surges up in value every time there is a pulse

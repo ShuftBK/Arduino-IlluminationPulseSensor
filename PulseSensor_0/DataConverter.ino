@@ -24,11 +24,11 @@ void JudgementFlag () {
   Serial.print("Pulse   :");
   Serial.print(Pulse);
   Serial.print("QS      :");
-  Serial.println(QS);
-  
+  Serial.println(QS);  
   
   if (BPM >= 40 && BPM <= 127) {
-
+    digitalWrite(ModeUpdate,HIGH);
+    lastUpdateTime = times;
     DataMerge();
   }
 }
@@ -57,4 +57,3 @@ void DataConvert (){
   
   PacketSender(PacketData);
 }
-
