@@ -18,6 +18,9 @@ int BPM;          // Beat Per Minutes
 int Pulse;        // Pulse Peak
 int data_1;       // up bit data
 int data_2;       // under bit data(BPM)
+unsigned long times;
+unsigned long lastPatternTime = 0;
+unsigned long lastCombinationTime = 0;
 
 char PrevMode;
 
@@ -44,34 +47,34 @@ void setup() {
 void loop() {
 
   get_word();
-
+  times = millis();
+  
+  if(PrevMode != ControlWord)
+  ModeReset();
+  
+  PrevMode = ControlWord;
+  
   // switch Mode
   switch(ControlWord){
     // All turn off Mode
     case '0':
-      ModeReset();
       digitalWrite(9,LOW);
-      Allturnoff();
       break;
-
+  
     // All turn on Mode
     case '1':
-      ModeReset();
       digitalWrite(9,LOW);
       Allturnon();
       break;
 
     // Pattern Light Mode
     case 'P':
-      ModeReset();
       digitalWrite(9,LOW);
       LightPatternMode();
       break;
 
     // Conbination Light Mode
     case 'C':
-      if(PrevMode != 'C')
-        Allturnoff();
       digitalWrite(9,HIGH);
       PrevMode = 'C';
       if(get_data())
@@ -81,3 +84,4 @@ void loop() {
   }
   
 }
+
