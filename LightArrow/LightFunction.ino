@@ -41,7 +41,6 @@ void LeavePulseArrow() {
   
 }
 
-void LightPatternMode(){
+void LightPatternMode() {
   
 }
-
