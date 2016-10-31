@@ -27,13 +27,11 @@ char stack;
 void setup() {
   // OUTPUT Angel Setup
   pinMode(2,OUTPUT);  // Angel
-  pinMode(3,OUTPUT);  // bow&arrow(Normal)
-  pinMode(4,OUTPUT);  // bow&arrow(Sensor)
 
   // Flag Check
   pinMode(9,OUTPUT);
 
-  Serial.begin(Speed);  
+  Serial.begin(Speed);
   SignalSerial.begin(Speed);
 }
 
@@ -45,36 +43,27 @@ void loop() {
   switch(ControlWord){
     // All turn off Mode
     case '0':
-      ModeReset();
       digitalWrite(9,LOW);
-      Allturnoff();
+      turnoffAngel();
       break;
 
     // All turn on Mode
     case '1':
-      ModeReset();
       digitalWrite(9,LOW);
-      Allturnon();
+      turnonAngel();
       break;
 
     // Pattern Light Mode
     case 'P':
-      ModeReset();
       digitalWrite(9,LOW);
-      LightPatternMode();
+      turnonAngel();
       break;
 
     // Conbination Light Mode
     case 'C':
-      if(PrevMode != 'C')
-        Allturnoff();
       digitalWrite(9,HIGH);
-      PrevMode = 'C';
-      if(get_data())
-        LightPulseArrow();
-        Serial.println(data,BIN);
+      turnonAngel();
       break;
   }
   
 }
-

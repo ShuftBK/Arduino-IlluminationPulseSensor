@@ -27,4 +27,3 @@ bool get_data(){
   }
   return false;
 }
-
