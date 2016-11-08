@@ -38,7 +38,7 @@ void setup() {
   pinMode(8,OUTPUT);  // Arrow7(shot heart)
 
   // Flag Check
-  pinMode(9,OUTPUT);
+  pinMode(13,OUTPUT);
 
   Serial.begin(Speed);
   SignalSerial.begin(Speed);

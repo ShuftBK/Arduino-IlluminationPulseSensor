@@ -45,15 +45,21 @@ void LightPulseArrow(){
 }
 
 void LightPatternMode() {
+  // 1秒立ったらの処理(簡易実装)
   if(times - lastPatternTime >= 1000){
     digitalWrite(NextPosition,HIGH);
     PrevPosition = NextPosition;
     ++NextPosition;
     lastPatternTime = times;
   }
-  if(PrevPosition >= reset_end){
+  // 矢2本目の時に1本目消灯
+  if(PrevPosition == 3)
+    digitalWrite(3,LOW);
+  // 矢3本目の時に2本目消灯
+  if(PrevPosition == 4)
+    digitalWrite(4,LOW);
+  // 最後まで行ったらｶｳﾝﾀｰﾘｾｯﾄ
+  if(PrevPosition >= reset_end)
     NextPosition = reset_start;
-    Allturnoff();
-  }
 }
 
