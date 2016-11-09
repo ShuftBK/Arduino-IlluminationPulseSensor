@@ -33,7 +33,7 @@ int fadePin = 5;                  // pin to do fancy classy fading blink at each
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
 unsigned long times;              // time
-unsigned long lastUpdateTime;     // 
+unsigned long lastUpdateTime;     // 更新時間関係
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS

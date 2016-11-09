@@ -22,7 +22,7 @@ volatile int amp = 100;                   // used to hold amplitude of pulse wav
 volatile boolean firstBeat = true;        // used to seed rate array so we startup with reasonable BPM(Google翻訳:我々は合理的なBPMで始まるので、レート・アレイを播種するために使用)
 volatile boolean secondBeat = false;      // used to seed rate array so we startup with reasonable BPM
 
-void TimerSet () {
+void PulseRead () {
   MsTimer2::stop();                                      // disable interrupts while we do this
 
   Signal = analogRead(pulsePin);              // read the Pulse Sensor 

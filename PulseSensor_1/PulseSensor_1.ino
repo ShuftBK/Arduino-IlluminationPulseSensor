@@ -15,11 +15,16 @@ https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino/blob/master/
 
 #define Arduino_ID 1
 
-#include <MsTimer2.h>           // MsTimer2ライブラリの読み込み(要ライブラリインストール
-#include <SoftwareSerial.h>   // SoftwareSerialライブラリの読み込み
+#include <TimerOne.h>           // TimerOneﾗｲﾌﾞﾗﾘの読み込み(要ﾗｲﾌﾞﾗﾘｲﾝｽﾄｰﾙ
+#include <MsTimer2.h>           // MsTimer2ﾗｲﾌﾞﾗﾘの読み込み(要ﾗｲﾌﾞﾗﾘｲﾝｽﾄｰﾙ
+#include <SoftwareSerial.h>   // SoftwareSerialﾗｲﾌﾞﾗﾘの読み込み
 
 // Init SoftwareSerial
-SoftwareSerial OutSerial = SoftwareSerial(9,10);
+// もと = 3,5,6,9,10,11
+// Tim2 = 3,11
+// Tim1 = 9,10
+// つまり = 5,6ですね
+SoftwareSerial OutSerial = SoftwareSerial(5,6);
 
 //  Variables
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
@@ -28,7 +33,7 @@ int fadePin = 5;                  // pin to do fancy classy fading blink at each
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
 unsigned long times;              // time
-unsigned long lastUpdateTime;     // 
+unsigned long lastUpdateTime;     // 更新時間関係
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
@@ -36,6 +41,9 @@ volatile int Signal;                // holds the incoming raw data
 volatile int IBI = 600;             // int that holds the time interval between beats! Must be seeded! 
 volatile boolean Pulse = false;     // "True" when User's live heartbeat is detected. "False" when not a "live beat". 
 volatile boolean QS = false;        // becomes true when Arduoino finds a beat.
+
+// なぜかDetectHandで定義していたにもかかわらずよみこまなかったのでこちら
+volatile boolean DetectedHand = false;
 
 // Setupします
 // interruptSetupが今回のｷﾓ
@@ -49,8 +57,13 @@ void setup(){
   
   OutSerial.begin(9600);
   
-  MsTimer2::set(2, TimerSet); // 2mSごとにTimerのオンオフ
-  MsTimer2::start();
+  // TimerOne割り込みにおける処理
+  Timer1.initialize(2);               // 2mSごとに処理を実行する
+  Timer1.attachInterrupt(HandRead);   // Timer1のｴﾝﾄﾘｰﾎﾟｲﾝﾄ
+
+  // Timer2割り込みにおける処理
+  MsTimer2::set(2, PulseRead);  // 2mSごとにTimerのオンオフ
+  MsTimer2::start();            // Timer2のｴﾝﾄﾘｰﾎﾟｲﾝﾄ
 }
 
 //  Where the Magic Happens
