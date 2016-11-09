@@ -33,12 +33,13 @@ QS              | Boolean | BPMが更新されたりパルスが更新される�
 ### オブジェ側  
 **以下未確定のため編集領域として置いておく**  
 
-Variable| Type    | data | description
---------|---------|------|-----------------------
-BPM     | Int     | 8bit | 1分間あたりの脈拍値。
-Pulse   | Boolean | 1bit | センサーが感知したらtrue,それ以外はfalseを返す(フラグが立ったら送信されるのでいらない…)
-ObjectID| Int     | 1bit | Arduinoに対して割り振られたID、0 or 1
-Mode    | Int     | 2bit | (代替としてモードを実装してるので実装してません)
+Variable    | Type    | data | description
+------------|---------|------|-----------------------
+BPM         | Int     | 8bit | 1分間あたりの脈拍値。
+Pulse       | Boolean | 1bit | センサーが感知したらtrue,それ以外はfalseを返す(フラグが立ったら送信されるのでいらない…)
+ObjectID    | Int     | 1bit | Arduinoに対して割り振られたID、0 or 1
+DetectedHand| Boolean | 1bit | 両方検知で1,それ以外は0
+Mode        | Int     | 2bit | (代替としてモードを実装してるので実装してません)
 
 ## 送信データ仕様
 
@@ -46,21 +47,23 @@ Mode    | Int     | 2bit | (代替としてモードを実装してるので実�
 
 bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 ----------|------|------|------|------|------|-------|-------|-----
-上位8bit  |      |      |      |      | ObjectID | Mode1 | Mode0 | Pulse0
+上位8bit  |      |      |      | DetectedHand | ObjectID | Mode1 | Mode0 | Pulse0
 下位8bit  | BPM7 | BPM6 | BPM5 | BPM4 | BPM3 | BPM2 | BPM1 | BPM0
 
-* Mode : ﾓｰﾄﾞを指定して送信する(内容は別途規定)
-* Pulse : センサーの反応値
-* BPM : ヒトの正常な脈拍の値が広いため8bitで送信
+* Mode : ﾓｰﾄﾞを指定して送信する(内容は別途規定)  
+* Pulse : センサーの反応値  
+* BPM : ヒトの正常な脈拍の値が広いため8bitで送信  
 * Object : センサーのArduino2台使用時に使用  
+* DetectedHand : 手がもう一方のArduinoで検知されているかどうか判断
 **残りは未使用の予約領域として残す**
 
 ## 主な仕様  
 ### センサー側  
 センサーによる検知や処理はサンプルプログラムに依る  
 受け取った値を解析してZigBeeの積んであるArduinoへ送信する  
+センサーを2つ使うため、各Arduino間で検知を共有する  
 
-### オブジェ側
+### オブジェ側  
 中継器に対してデータを送信する  
 なお、オブジェ1、オブジェ2に対して受信用のZigBee on Arduinoを使う
 そのため、オブジェ1のArduinoはSoftwareSerialを用いてangelとarrowに受信データの送信を行う  
