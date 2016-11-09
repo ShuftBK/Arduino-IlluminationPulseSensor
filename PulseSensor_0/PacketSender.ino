@@ -5,14 +5,20 @@
  */
 
 // ひとまとめにしたデータを送信する処理だけ分離(あまりにもわかりにくいから)
- void PacketSender (char Packet) {
-  // ヘッダーを追加
+ void PacketSender (char Up, char Under) {
+  // コンソール確認用
   Serial.print('H');
-  Serial.println( Packet );
+  Serial.print( Up );
+  Serial.println( Under );
+  Serial.print(Up,BIN);
+  Serial.println(Under,BIN);
+
+  // ZigBee送信用
   OutSerial.print('H');
-  OutSerial.println( Packet );
+  OutSerial.print( Up );
+  OutSerial.println( Under );
   
   // dataの初期化
-  PacketData = 0;
-  Serial.println(Packet,BIN);
+  Upperbit = 0;
+  Underbit = 0;
 }

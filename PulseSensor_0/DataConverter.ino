@@ -4,7 +4,8 @@
  * 
  */
 
-char PacketData = 0;
+char Upperbit = 0;
+char Underbit = 0;
 
 boolean _Pulse = 0;
 int _BPM = 0;
@@ -47,13 +48,19 @@ void DataMerge () {
 // データをまとめて送信時に困らないようにするためにある
 void DataConvert (){
   
-  PacketData = _BPM;
+  Upperbit = _BPM;
   
   // Pulse値を書き込み
-  bitWrite(PacketData,9,1);
+  bitWrite(Underbit,1,1);
   
   // Arduinoの固有IDを書き込み
-  bitWrite(PacketData,12,Arduino_ID);
-  
-  PacketSender(PacketData);
+  bitWrite(Underbit,4,Arduino_ID);
+
+  // 検知してるかどうかのｱﾚ
+  if(DetectedHand == true)
+    bitWrite(Underbit,5,1);
+  else
+    bitWrite(Underbit,5,0);
+    
+  PacketSender(Upperbit,Underbit);
 }
