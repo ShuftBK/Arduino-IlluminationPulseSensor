@@ -20,7 +20,7 @@ bool get_data(){
     Pulse = bitRead(data_1,1);
     ArduinoID = bitRead(data_1,4);
     BPM = data_2;
-    
+    Serial.println(data_1,BIN);
     data = makeWord(data_1,data_2);
     
     return true;

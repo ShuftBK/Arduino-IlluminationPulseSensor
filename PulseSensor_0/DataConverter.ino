@@ -30,6 +30,7 @@ void JudgementFlag () {
   if (BPM >= 40 && BPM <= 127) {
     digitalWrite(ModeUpdate,HIGH);
     lastUpdateTime = times;
+    HandRead();
     DataMerge();
   }
 }
@@ -48,19 +49,19 @@ void DataMerge () {
 // データをまとめて送信時に困らないようにするためにある
 void DataConvert (){
   
-  Upperbit = _BPM;
+  Underbit = _BPM;
   
   // Pulse値を書き込み
-  bitWrite(Underbit,1,1);
+  bitWrite(Upperbit,0,1);
   
   // Arduinoの固有IDを書き込み
-  bitWrite(Underbit,4,Arduino_ID);
+  bitWrite(Upperbit,3,Arduino_ID);
 
   // 検知してるかどうかのｱﾚ
   if(DetectedHand == true)
-    bitWrite(Underbit,5,1);
+    bitWrite(Upperbit,4,1);
   else
-    bitWrite(Underbit,5,0);
+    bitWrite(Upperbit,4,0);
     
   PacketSender(Upperbit,Underbit);
 }

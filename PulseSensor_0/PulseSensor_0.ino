@@ -13,9 +13,9 @@ https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino/blob/master/
  ----------------------       ----------------------  ----------------------
 */
 
-#define Arduino_ID 0
+const bool Arduino_ID = 0;
 
-#include <TimerOne.h>           // TimerOneﾗｲﾌﾞﾗﾘの読み込み(要ﾗｲﾌﾞﾗﾘｲﾝｽﾄｰﾙ
+//#include <TimerOne.h>           // TimerOneﾗｲﾌﾞﾗﾘの読み込み(要ﾗｲﾌﾞﾗﾘｲﾝｽﾄｰﾙ
 #include <MsTimer2.h>           // MsTimer2ﾗｲﾌﾞﾗﾘの読み込み(要ﾗｲﾌﾞﾗﾘｲﾝｽﾄｰﾙ
 #include <SoftwareSerial.h>   // SoftwareSerialﾗｲﾌﾞﾗﾘの読み込み
 
@@ -56,11 +56,11 @@ void setup(){
   digitalWrite(ModeUpdate,LOW);
   
   OutSerial.begin(9600);
-  
+  /*
   // TimerOne割り込みにおける処理
   Timer1.initialize(2);               // 2mSごとに処理を実行する
   Timer1.attachInterrupt(HandRead);   // Timer1のｴﾝﾄﾘｰﾎﾟｲﾝﾄ
-
+  */
   // Timer2割り込みにおける処理
   MsTimer2::set(2, PulseRead);  // 2mSごとにTimerのオンオフ
   MsTimer2::start();            // Timer2のｴﾝﾄﾘｰﾎﾟｲﾝﾄ
@@ -84,7 +84,10 @@ void loop(){
     // QSのフラグをリセットして次回の反応を待つ
     QS = false;                      // reset the Quantified Self flag for next time    
   }
-    Serial.println(times - lastUpdateTime);
+  
+    // 時間表示(相対)  
+    //Serial.println(times - lastUpdateTime);
+  
   if(times - lastUpdateTime >= 5000){
     digitalWrite(ModeUpdate,LOW);
   }

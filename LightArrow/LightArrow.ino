@@ -79,7 +79,6 @@ void loop() {
       PrevMode = 'C';
       if(get_data())
         LightPulseArrow();
-        Serial.println(data,BIN);
       break;
   }
   

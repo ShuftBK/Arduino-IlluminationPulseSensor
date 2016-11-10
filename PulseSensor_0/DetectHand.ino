@@ -4,7 +4,7 @@
  *  検知されていたらHIGHなのでDetectHandがtrue,なければLOWなのでfalse
  */
 void HandRead (){
-  if(digitalRead(7) == HIGH)
+  if(digitalRead(4) == HIGH)
   DetectedHand = true;
   else
   DetectedHand = false;

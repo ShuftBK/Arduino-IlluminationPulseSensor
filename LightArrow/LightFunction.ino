@@ -54,10 +54,10 @@ void LightPatternMode() {
   }
   // 矢2本目の時に1本目消灯
   if(PrevPosition == 3)
-    digitalWrite(3,LOW);
+    digitalWrite(2,LOW);
   // 矢3本目の時に2本目消灯
   if(PrevPosition == 4)
-    digitalWrite(4,LOW);
+    digitalWrite(3,LOW);
   // 最後まで行ったらｶｳﾝﾀｰﾘｾｯﾄ
   if(PrevPosition >= reset_end)
     NextPosition = reset_start;

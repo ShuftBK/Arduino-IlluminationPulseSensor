@@ -8,9 +8,9 @@
  void PacketSender (char Up, char Under) {
   // コンソール確認用
   Serial.print('H');
-  Serial.print( Up );
-  Serial.println( Under );
-  Serial.print(Up,BIN);
+  Serial.print(Up,HEX);
+  Serial.println(Under,HEX);
+  Serial.println(Up,BIN);
   Serial.println(Under,BIN);
 
   // ZigBee送信用
