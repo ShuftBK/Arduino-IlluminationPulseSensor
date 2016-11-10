@@ -58,24 +58,24 @@ void loop() {
   switch(ControlWord){
     // All turn off Mode
     case '0':
-      digitalWrite(9,LOW);
+      digitalWrite(13,LOW);
       break;
   
     // All turn on Mode
     case '1':
-      digitalWrite(9,LOW);
+      digitalWrite(13,LOW);
       Allturnon();
       break;
 
     // Pattern Light Mode
     case 'P':
-      digitalWrite(9,LOW);
+      digitalWrite(13,LOW);
       LightPatternMode();
       break;
 
     // Conbination Light Mode
     case 'C':
-      digitalWrite(9,HIGH);
+      digitalWrite(13,HIGH);
       PrevMode = 'C';
       if(get_data())
         LightPulseArrow();

@@ -1,7 +1,7 @@
 # Arduino-IlluminationPulseSensor
 東舞鶴駅イルミネーション事業用プログラム(電気情報工学実験ⅡB)
 
-*完成板のコミットまでにreadmeは整理してきれいにします* 
+*完成版のコミットまでにreadmeは整理してきれいにします* 
 
 ## 所感
 * AVRの仕様書421ﾍﾟｰｼﾞってマジか…
@@ -56,6 +56,38 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 * Object : センサーのArduino2台使用時に使用  
 * DetectedHand : 手がもう一方のArduinoで検知されているかどうか判断
 **残りは未使用の予約領域として残す**
+
+## ピン番号  
+### PulseSensor_0 & PulseSensor_1  
+0. HardwareSerial Rx  <-  RS232  
+1. HardwareSerial Tx  ->  RS232  
+3. Timer2  
+4. DetectedHand       <-  Other Arduino ModeUpdate Pin(7)  
+5. OutSerial Rx       <-  ZigBee Tx  
+6. OutSerial Tx       ->  ZigBee Rx  
+7. ModeUpdate         ->  DetectedHand && ZigBee ModeChanger  
+
+### Angel  
+0. HardwareSerial Rx  <-  RS232 && ZigBee Tx(Mode Change)  
+1. HardwareSerial Tx  ->  RS232 && ZigBee Rx(Mode Change)  
+2. Angel  
+10. SignalSerial Rx   <-  ZigBee Tx(Sensor Data)  
+11. SignalSerial Tx   ->  ZigBee Rx(Sensor Data)  
+13. FlagCheck  
+
+### Arrow  
+0. HardwareSerial Rx  <-  RS232 && ZigBee Tx(Mode Change)  
+1. HardwareSerial Tx  ->  RS232 && ZigBee Rx(Mode Change)  
+2. Arrow #1  
+3. Arrow #2  
+4. Arrow #3  
+5. Arrow #4  
+6. Arrow #5  
+7. Arrow #6  
+8. Arrow #7  
+10. SignalSerial Rx   <-  ZigBee Tx(Sensor Data)  
+11. SignalSerial Tx   ->  ZigBee Rx(Sensor Data)  
+13. FlagCheck  
 
 ## 主な仕様  
 ### センサー側  

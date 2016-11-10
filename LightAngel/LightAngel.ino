@@ -29,7 +29,7 @@ void setup() {
   pinMode(2,OUTPUT);  // Angel
 
   // Flag Check
-  pinMode(9,OUTPUT);
+  pinMode(13,OUTPUT);
 
   Serial.begin(Speed);
   SignalSerial.begin(Speed);
@@ -43,25 +43,25 @@ void loop() {
   switch(ControlWord){
     // All turn off Mode
     case '0':
-      digitalWrite(9,LOW);
+      digitalWrite(13,LOW);
       turnoffAngel();
       break;
 
     // All turn on Mode
     case '1':
-      digitalWrite(9,LOW);
+      digitalWrite(13,LOW);
       turnonAngel();
       break;
 
     // Pattern Light Mode
     case 'P':
-      digitalWrite(9,LOW);
+      digitalWrite(13,LOW);
       turnonAngel();
       break;
 
     // Conbination Light Mode
     case 'C':
-      digitalWrite(9,HIGH);
+      digitalWrite(13,HIGH);
       turnonAngel();
       break;
   }
