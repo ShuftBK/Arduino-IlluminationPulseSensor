@@ -8,6 +8,11 @@
 
 ---
 
+## センサーについて
+使用する脈拍センサーは[World Famous Electronics llc](http://pulsesensor.com/)のPulseSensorを用いる(直球なﾈｰﾐﾝｸﾞ)  
+脈拍センサーを使用することで下図のような値が入力される。  
+![Pulse](figures/pulse.PNG)  
+
 ## 制御内容
 ### オブジェ1(angel,arrow)
 * 7つの矢を飛ばすために、１周期ごとにフラグ(Pulse[Boolean])をセンサー側からオブジェ側へ送信する。なお、表示する矢は基本的に一本ずつ光らせる。パターンを以下に示す。
