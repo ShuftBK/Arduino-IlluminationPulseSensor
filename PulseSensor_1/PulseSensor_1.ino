@@ -29,7 +29,8 @@ SoftwareSerial OutSerial = SoftwareSerial(5,6);
 //  Variables
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
 int blinkPin = 13;                // pin to blink led at each beat
-int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
+int detect = 4;
+int fadePin = 5;               // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
 unsigned long times;              // time
@@ -51,6 +52,7 @@ void setup(){
   pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
   pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
   pinMode(ModeUpdate,OUTPUT);       
+  pinMode(detect,INPUT);
   Serial.begin(9600);             // we agree to talk fast!
   
   digitalWrite(ModeUpdate,LOW);
