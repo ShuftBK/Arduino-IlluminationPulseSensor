@@ -67,22 +67,23 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 0. HardwareSerial Rx  <-  RS232  
 1. HardwareSerial Tx  ->  RS232  
 3. Timer2  
-4. DetectedHand       <-  Other Arduino ModeUpdate Pin(7)  
-5. OutSerial Rx       <-  ZigBee Tx  
-6. OutSerial Tx       ->  ZigBee Rx  
-7. ModeUpdate         ->  DetectedHand && ZigBee ModeChanger  
+4. DetectedHand       <-  Other Arduino ModeUpdate Pin(8)
+5. fadePin
+6. OutSerial Rx       <-  [7,9]ZigBee Tx  
+7. OutSerial Tx       ->  [6,8]ZigBee Rx  
+8. ModeUpdate         ->  [3]DetectedHand && ZigBee ModeChanger  
 
 ### Angel  
-0. HardwareSerial Rx  <-  RS232 && ZigBee Tx(Mode Change)  
-1. HardwareSerial Tx  ->  RS232 && ZigBee Rx(Mode Change)  
+0. HardwareSerial Rx  <-  RS232 && [7]ZigBee Tx(Mode Change)  
+1. HardwareSerial Tx  ->  RS232 && [6]ZigBee Rx(Mode Change)  
 2. Angel  
-10. SignalSerial Rx   <-  ZigBee Tx(Sensor Data)  
-11. SignalSerial Tx   ->  ZigBee Rx(Sensor Data)  
+10. SignalSerial Rx   <-  [7]ZigBee Tx(Sensor Data)  
+11. SignalSerial Tx   ->  [6]ZigBee Rx(Sensor Data)  
 13. FlagCheck  
 
 ### Arrow  
-0. HardwareSerial Rx  <-  RS232 && ZigBee Tx(Mode Change)  
-1. HardwareSerial Tx  ->  RS232 && ZigBee Rx(Mode Change)  
+0. HardwareSerial Rx  <-  RS232 && [9]ZigBee Tx(Mode Change)  
+1. HardwareSerial Tx  ->  RS232 && [8]ZigBee Rx(Mode Change)  
 2. Arrow #1  
 3. Arrow #2  
 4. Arrow #3  
@@ -90,9 +91,30 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 6. Arrow #5  
 7. Arrow #6  
 8. Arrow #7  
-10. SignalSerial Rx   <-  ZigBee Tx(Sensor Data)  
-11. SignalSerial Tx   ->  ZigBee Rx(Sensor Data)  
+10. SignalSerial Rx   <-  [7]ZigBee Tx(Sensor Data)  
+11. SignalSerial Tx   ->  [6]ZigBee Rx(Sensor Data)  
 13. FlagCheck  
+
+## 無線子機
+### 1(モード)  
+6. AngelSerial Rx  <-  [1]HardwareSerial Tx  
+7. AngelSerial Tx  ->  [0]HardwareSerial Rx  
+8. ArrowSerial Rx  <-  [1]HardwareSerial Tx  
+9. ArrowSerial Tx  ->  [0]HardwareSerial Rx  
+
+### 4(Sensor Data Receiver)
+6. SensorData Rx  <-  [11]SignalSerial Tx
+7. SensorData Tx  ->  [10]SignalSerial Rx
+8. SensorData Rx  <-  [11]SignalSerial Tx  
+9. SensorData Tx  ->  [10]SignalSerial Rx
+
+### 6(Sensor Data Transmitter)
+3. INPUT Mode  <-  [8]ModeUpdate
+6. SoftwareSerial Rx  <-  [7]PulseSensor_0 OutSerial Tx
+7. SoftwareSerial Tx  ->  [6]PulseSensor_0 OutSerial Rx
+8. SoftwareSerial Rx  <-  [7]PulseSensor_1 OutSerial Tx
+9. SoftwareSerial Tx  ->  [6]PulseSensor_1 OutSerial Rx
+
 
 ## 主な仕様  
 ### センサー側  
