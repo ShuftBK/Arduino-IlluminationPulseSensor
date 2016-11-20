@@ -64,8 +64,8 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 
 ## ピン番号  
 ### PulseSensor_0 & PulseSensor_1  
-0. HardwareSerial Rx  <-  RS232  
-1. HardwareSerial Tx  ->  RS232  
+0. HardwareSerial Rx  <-  USB Serial  
+1. HardwareSerial Tx  ->  USB Serial  
 3. Timer2  
 4. DetectedHand       <-  Other Arduino ModeUpdate Pin(8)
 5. fadePin
@@ -74,16 +74,16 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 8. ModeUpdate         ->  [3]DetectedHand && ZigBee ModeChanger  
 
 ### Angel  
-0. HardwareSerial Rx  <-  RS232 && [7]ZigBee Tx(Mode Change)  
-1. HardwareSerial Tx  ->  RS232 && [6]ZigBee Rx(Mode Change)  
+0. HardwareSerial Rx  <-  USB Serial && [7]ZigBee Tx(Mode Change)  
+1. HardwareSerial Tx  ->  USB Serial && [6]ZigBee Rx(Mode Change)  
 2. Angel  
 10. SignalSerial Rx   <-  [7]ZigBee Tx(Sensor Data)  
 11. SignalSerial Tx   ->  [6]ZigBee Rx(Sensor Data)  
 13. FlagCheck  
 
 ### Arrow  
-0. HardwareSerial Rx  <-  RS232 && [9]ZigBee Tx(Mode Change)  
-1. HardwareSerial Tx  ->  RS232 && [8]ZigBee Rx(Mode Change)  
+0. HardwareSerial Rx  <-  USB Serial && [9]ZigBee Tx(Mode Change)  
+1. HardwareSerial Tx  ->  USB Serial && [8]ZigBee Rx(Mode Change)  
 2. Arrow #1  
 3. Arrow #2  
 4. Arrow #3  
