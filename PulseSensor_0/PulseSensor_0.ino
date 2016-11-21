@@ -29,7 +29,8 @@ SoftwareSerial OutSerial = SoftwareSerial(5,6);
 //  Variables
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
 int blinkPin = 13;                // pin to blink led at each beat
-int detect = 4;
+int detect = 4;                   // Read Hand Mode
+int outMode = 2;                  // Output Mode
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
@@ -72,6 +73,12 @@ void setup(){
 void loop(){
   //Serial.println(Signal);
   times = millis();
+
+  if(HandRead())
+  digitalWrite(outMode,HIGH);
+  else
+  digitalWrite(outMode,LOW);
+  
   // QS(センサーが反応しているかどうか)で反応があった場合の処理を以下で行う
   if (QS == true){     // A Heartbeat Was Found
                        // BPM and IBI have been Determined (BPMおよびIBMが決定されています)

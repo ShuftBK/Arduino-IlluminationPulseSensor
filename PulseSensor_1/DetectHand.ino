@@ -3,10 +3,10 @@
  *  もう一方のArduinoで手が検知されているかどうかの判断
  *  検知されていたらHIGHなのでDetectHandがtrue,なければLOWなのでfalse
  */
-void HandRead (){
+bool HandRead (){
   if(digitalRead(detect) == HIGH)
-  DetectedHand = true;
+  return true;
   else
-  DetectedHand = false;
+  return false;
 }
 

@@ -66,12 +66,13 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 ### PulseSensor_0 & PulseSensor_1  
 0. HardwareSerial Rx  <-  USB Serial  
 1. HardwareSerial Tx  ->  USB Serial  
+2. ZigBeeModeUpdater  ->  [3]ZigBee ModeChanger  
 3. Timer2  
-4. DetectedHand       <-  Other Arduino ModeUpdate Pin(8)
+4. DetectedHand       <-  [8]Other Arduino ModeUpdate Pin
 5. fadePin
 6. OutSerial Rx       <-  [7,9]ZigBee Tx  
 7. OutSerial Tx       ->  [6,8]ZigBee Rx  
-8. ModeUpdate         ->  [3]DetectedHand && ZigBee ModeChanger  
+8. ModeUpdate         ->  [3]DetectedHand
 
 ### Angel  
 0. HardwareSerial Rx  <-  USB Serial && [7]ZigBee Tx(Mode Change)  
@@ -109,7 +110,7 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 9. SensorData Tx  ->  [10]SignalSerial Rx
 
 ### 6(Sensor Data Transmitter)
-3. INPUT Mode  <-  [8]ModeUpdate
+3. INPUT Mode  <-  [2]ZigBeeModeUpdater
 6. SoftwareSerial Rx  <-  [7]PulseSensor_0 OutSerial Tx
 7. SoftwareSerial Tx  ->  [6]PulseSensor_0 OutSerial Rx
 8. SoftwareSerial Rx  <-  [7]PulseSensor_1 OutSerial Tx
