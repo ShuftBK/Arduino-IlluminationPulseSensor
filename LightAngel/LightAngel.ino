@@ -13,7 +13,7 @@ SoftwareSerial SignalSerial(rxPin,txPin);
 // Global Variables
 int data;         // marge data
 int ArduinoID;    // Get Arduino Identifier
-int Mode = 'C';   // use debug only
+int Mode = '0';   // init mode
 int BPM;          // Beat Per Minutes
 int Pulse;        // Pulse Peak
 int data_1;       // up bit data
