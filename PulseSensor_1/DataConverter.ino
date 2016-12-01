@@ -58,7 +58,7 @@ void DataConvert (){
   bitWrite(Upperbit,3,Arduino_ID);
 
   // 検知してるかどうかのｱﾚ
-  if(HandRead())
+  if(DetectedHand == true)
     bitWrite(Upperbit,4,1);
   else
     bitWrite(Upperbit,4,0);
