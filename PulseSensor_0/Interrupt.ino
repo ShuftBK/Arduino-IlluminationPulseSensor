@@ -59,8 +59,7 @@ void PulseRead () {
       IBI = sampleCounter - lastBeatTime;         // measure time between beats in mS
       // 現在の時間を最後にパルスを検出した時刻とし、次のパルスの検出に備える
       lastBeatTime = sampleCounter;               // keep track of time for next pulse
-
-      // if(secondBeat == true)と同じ動作するので、ここC++の仕様です
+      
       if(secondBeat){                        // if this is the second beat, if secondBeat == TRUE
         // secondBeatのフラグをfalseに戻す
         secondBeat = false;                  // clear secondBeat flag
@@ -70,7 +69,6 @@ void PulseRead () {
         }
       }
 
-      // if(firstBeat == true)と同じ動作するので、ここC++の仕様です
       if(firstBeat){                         // if it's the first time we found a beat, if firstBeat == TRUE
         // firstBeatのフラグをfalseに戻す
         firstBeat = false;                   // clear firstBeat flag
@@ -140,6 +138,6 @@ void PulseRead () {
     firstBeat = true;                      // set these to avoid noise
     secondBeat = false;                    // when we get the heartbeat back(Google翻訳:我々は戻ってハートビートを取得するときに、これらのノイズを避けるために設定)
   }
-  // グローバル割り込みを許可してどねどね
+  // グローバル割り込みを許可してdone
   MsTimer2::start();
 }

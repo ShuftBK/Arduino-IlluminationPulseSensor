@@ -14,8 +14,8 @@ int _BPM = 0;
 // これ自体は読み取った値に対して本当にそれが有効であるかを判断させ、モードを確定する
 // 要は脈拍が異常値をたたき出していないかと、ちゃんと手を認識しているかを判別する
 void JudgementFlag () {
-  // テストで呼び込まれていればserialprintする
   
+  // テストで呼び込まれていればserialprintする
   Serial.print("BPM     :");
   Serial.print(BPM);
   Serial.print("Signal  :");
@@ -28,10 +28,10 @@ void JudgementFlag () {
   Serial.println(QS);  
   
   if (BPM >= 40 && BPM <= 127) {
-    digitalWrite(ModeUpdate,HIGH);
-    lastUpdateTime = times;
-    HandRead();
-    DataMerge();
+    digitalWrite(ModeUpdate,HIGH);  
+    lastUpdateTime = times;         // lastUpdateTimeに今の時間を入れる
+    HandRead();                     // 他のArduinoで手が検知されているかを取る
+    DataMerge();                    // 取得データをマージする
   }
 }
 

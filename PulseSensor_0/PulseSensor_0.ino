@@ -29,13 +29,12 @@ SoftwareSerial OutSerial = SoftwareSerial(5,6);
 //  Variables
 int pulsePin = 0;                 // Pulse Sensor purple wire connected to analog pin 0
 int blinkPin = 13;                // pin to blink led at each beat
-int detect = 4;
-int outMode = 2;
+int detect = 4;                   // detect hand other arduino
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
-unsigned long times;              // time
-unsigned long lastUpdateTime;     // 更新時間関係
+unsigned long times;              // 現在時刻
+unsigned long lastUpdateTime;     // 最終更新時刻
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
@@ -98,6 +97,7 @@ void loop(){
     // 時間表示(相対)  
     //Serial.println(times - lastUpdateTime);
   
+  // 現在時刻と最終更新時刻を比較し、手が感知されていなかったら5secでModeUpdateを止める
   if(times - lastUpdateTime >= 5000){
     digitalWrite(ModeUpdate,LOW);
   }
