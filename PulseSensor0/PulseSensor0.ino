@@ -33,8 +33,8 @@ int detect = 4;                   // detect hand other arduino
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
-unsigned long times;              // 現在時刻
-unsigned long lastUpdateTime;     // 最終更新時刻
+volatile unsigned long times;              // 現在時刻
+volatile unsigned long lastUpdateTime;     // 最終更新時刻
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
@@ -73,12 +73,6 @@ void loop(){
   //Serial.println(Signal);
   times = millis();
 
-  HandRead();
-  if(DetectedHand)
-  digitalWrite(outMode,HIGH);
-  else
-  digitalWrite(outMode,LOW);
-  
   // QS(センサーが反応しているかどうか)で反応があった場合の処理を以下で行う
   if (QS == true){     // A Heartbeat Was Found
                        // BPM and IBI have been Determined (BPMおよびIBMが決定されています)
