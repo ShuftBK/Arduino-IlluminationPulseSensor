@@ -27,8 +27,9 @@ void JudgementFlag () {
   Serial.print("QS      :");
   Serial.println(QS);  
   
-  if (BPM >= 40 && BPM <= 127) {
-    digitalWrite(ModeUpdate,HIGH);  
+  if (BPM >= 40 && BPM <= 100) {
+    digitalWrite(ModeUpdate,HIGH); 
+    digitalWrite(Modeout,HIGH); 
     lastUpdateTime = times;         // lastUpdateTimeに今の時間を入れる
     HandRead();                     // 他のArduinoで手が検知されているかを取る
     DataMerge();                    // 取得データをマージする

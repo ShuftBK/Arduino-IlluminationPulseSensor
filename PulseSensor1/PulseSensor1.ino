@@ -33,6 +33,7 @@ int detect = 4;                   // detect hand other arduino
 int fadePin = 5;                  // pin to do fancy classy fading blink at each beat
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
+int Modeout = 8;                  // other arduino output
 volatile unsigned long times;              // 現在時刻
 volatile unsigned long lastUpdateTime;     // 最終更新時刻
 
@@ -89,17 +90,17 @@ void loop(){
   }
   
     // 時間表示(相対)  
-    //Serial.println(times - lastUpdateTime);
+    Serial.println(times - lastUpdateTime);
   
   // 現在時刻と最終更新時刻を比較し、手が感知されていなかったら5secでModeUpdateを止める
   if(times - lastUpdateTime >= 5000){
     digitalWrite(ModeUpdate,LOW);
+    digitalWrite(Modeout,LOW);
   }
   
   // フェードするLEDのエフェクトを出力するけど、ｼｮｳｼﾞｷｲﾗﾅｲ
   // QSフラグが立たなかった場合にも呼び出される。
-  ledFadeToBeat();                      // Makes the LED Fade Effect Happen 
-  
+
   // アップデートサイクル20ms
   delay(20);                             //  take a break
 }
