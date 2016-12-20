@@ -30,9 +30,10 @@ void JudgementFlag () {
   if (BPM >= 40 && BPM <= 100) {
     digitalWrite(ModeUpdate,HIGH); 
     digitalWrite(Modeout,HIGH); 
+    digitalWrite(blinkPin,HIGH);
     lastUpdateTime = times;         // lastUpdateTimeに今の時間を入れる
     HandRead();                     // 他のArduinoで手が検知されているかを取る
-    ledFadeToBeat(); 
+    //ledFadeToBeat(); 
     DataMerge();                    // 取得データをマージする
   }
 }

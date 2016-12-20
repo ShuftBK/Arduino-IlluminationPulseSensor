@@ -53,7 +53,7 @@ void PulseRead () {
       // センサーがパルスを検出している状態とする。
       Pulse = true;                               // set the Pulse flag when we think there is a pulse
       // 検出したのでLED(blinkPin)を光らせる
-      digitalWrite(blinkPin,HIGH);                // turn on pin 13 LED
+      //digitalWrite(blinkPin,HIGH);                // turn on pin 13 LED
       // ミリ秒でビート間の時間を測定
       // 現在の時間から、最後にパルスを検出した時間の差を取り、IBI(インターバル)を求める
       IBI = sampleCounter - lastBeatTime;         // measure time between beats in mS
@@ -114,7 +114,7 @@ void PulseRead () {
   // センサーが感知しなくなったとき(詳しくは翻訳読んで)
   if (Signal < thresh && Pulse == true){   // when the values are going down, the beat is over(Google翻訳:値が下がり続けているときに、ビートは終わりました)
     // blinkPinをLOWにする
-    digitalWrite(blinkPin,LOW);            // turn off pin 13 LED
+    //digitalWrite(blinkPin,LOW);            // turn off pin 13 LED
     // Pulseフラグを折る
     Pulse = false;                         // reset the Pulse flag so we can do it again
     // amp値をピーク値から脈拍の谷の値で差を取る

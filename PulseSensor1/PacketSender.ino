@@ -17,6 +17,8 @@
   OutSerial.print('H');
   OutSerial.print( Up );
   OutSerial.println( Under );
+
+  digitalWrite(blinkPin,LOW);
   
   // dataの初期化
   Upperbit = 0;
