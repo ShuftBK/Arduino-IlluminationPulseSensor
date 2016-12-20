@@ -32,6 +32,7 @@ void JudgementFlag () {
     digitalWrite(Modeout,HIGH); 
     lastUpdateTime = times;         // lastUpdateTimeに今の時間を入れる
     HandRead();                     // 他のArduinoで手が検知されているかを取る
+    ledFadeToBeat(); 
     DataMerge();                    // 取得データをマージする
   }
 }
