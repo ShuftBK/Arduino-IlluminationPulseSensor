@@ -1,8 +1,6 @@
 # Arduino-IlluminationPulseSensor
 東舞鶴駅イルミネーション事業用プログラム(電気情報工学実験ⅡB)
 
-*完成版のコミットまでにreadmeは整理してきれいにします* 
-
 ---
 
 ## センサーについて
