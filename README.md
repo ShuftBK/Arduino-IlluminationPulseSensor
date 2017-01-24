@@ -65,10 +65,9 @@ bit       | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0
 2. ZigBeeModeUpdater  ->  [3]ZigBee ModeChanger  
 3. Timer2  
 4. DetectedHand       <-  [8]Other Arduino ModeUpdate Pin
-5. fadePin
-6. OutSerial Rx       <-  [7,9]ZigBee Tx  
-7. OutSerial Tx       ->  [6,8]ZigBee Rx  
-8. ModeUpdate         ->  [3]DetectedHand
+5. OutSerial Rx       <-  [7,9]ZigBee Tx  
+6. OutSerial Tx       ->  [6,8]ZigBee Rx  
+7. ModeUpdate         ->  [3]DetectedHand
 
 ### Angel  
 0. HardwareSerial Rx  <-  USB Serial && [7]ZigBee Tx(Mode Change)  
