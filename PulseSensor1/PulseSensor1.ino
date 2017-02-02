@@ -34,8 +34,13 @@ int fadePin = 5;                  // pin to do fancy classy fading blink at each
 int fadeRate = 0;                 // used to fade LED on with PWM on fadePin
 int ModeUpdate = 7;               // Update Mode 'P' or 'C'
 int Modeout = 8;                  // other arduino output
+int touch = 2;                    // touch input sensor
 volatile unsigned long times;              // 現在時刻
 volatile unsigned long lastUpdateTime;     // 最終更新時刻
+
+// trueのときは認識していないとき、もしくは一回目の処理が終わっていないとき
+// falseのときは一回目の処理が終わって認識しているとき
+bool touchme = true;
 
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
@@ -54,6 +59,7 @@ void setup(){
   pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
   pinMode(ModeUpdate,OUTPUT);       
   pinMode(detect,INPUT);
+  pinMode(touch,INPUT);
   Serial.begin(9600);             // we agree to talk fast!
   
   digitalWrite(ModeUpdate,LOW);
@@ -73,6 +79,11 @@ void setup(){
 void loop(){
   //Serial.println(Signal);
   times = millis();
+  
+  if(digitalRead(touch))
+    touchinput();
+  else 
+    touchme = true;
 
   // QS(センサーが反応しているかどうか)で反応があった場合の処理を以下で行う
   if (QS == true){     // A Heartbeat Was Found
@@ -100,7 +111,8 @@ void loop(){
   
   // フェードするLEDのエフェクトを出力するけど、ｼｮｳｼﾞｷｲﾗﾅｲ
   // QSフラグが立たなかった場合にも呼び出される。
-
+                       // Makes the LED Fade Effect Happen 
+  
   // アップデートサイクル20ms
   delay(20);                             //  take a break
 }
